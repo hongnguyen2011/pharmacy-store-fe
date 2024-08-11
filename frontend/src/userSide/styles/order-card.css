@@ -1,0 +1,20 @@
+.card__container {
+    margin: 30px 0;
+}
+
+.card__title {
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+
+.drop__detail {
+    display: flex;
+    justify-content: space-around;
+}
+
+.detail__btn {
+    margin-top: 0;
+    padding: 0 10px;
+    height: 34px;
+}

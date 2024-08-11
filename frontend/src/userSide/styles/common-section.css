@@ -1,0 +1,23 @@
+.common__section {
+  background: linear-gradient(to right, #74ebd5, #acb6e5);
+  background-size: cover;
+  padding: 100px 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.common__section h1 {
+  color: #fff;
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 768px) {
+  .common__section {
+    padding: 70px 0;
+  }
+
+  .common__section h1 {
+    font-size: 1.4rem;
+  }
+}

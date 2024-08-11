@@ -1,0 +1,48 @@
+.container__profile {
+  margin-top: 30px;
+}
+
+.profile-cover {
+  height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.card__avatar {
+  position: relative;
+}
+
+.card_profile {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 68px;
+}
+
+.user-avatar {
+  border: 1px solid #000;
+  width: 200px;
+  height: 200px;
+}
+
+.form__upload {
+  position: absolute;
+  transform: translateX(-50%);
+  left: 50%;
+  top: 312px;
+}
+
+#label__avatar {
+  display: inline-block;
+  background-color: #0a1d37;
+  color: white;
+  padding: 0.5rem;
+  font-family: sans-serif;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.container__button{
+    margin-top: 16px;
+}

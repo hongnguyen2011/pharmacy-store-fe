@@ -1,0 +1,150 @@
+.product__details {
+  margin-top: 50px;
+}
+
+.product__details h2 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.product__rating span i {
+  color: var(--rating-color);
+}
+
+.product__rating p span {
+  color: var(--rating-color);
+}
+
+.product__price {
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.tab__wrapper h6 {
+  color: var(--primary-color);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.active__tab {
+  font-weight: 700;
+}
+
+.tab__content p {
+  line-height: 30px;
+}
+
+.review__wrapper ul li span {
+  color: var(--rating-color);
+  font-weight: 600;
+}
+
+.review__wrapper ul li {
+  margin-bottom: 10px;
+}
+.review__wrapper ul li p {
+  margin-top: 10px;
+}
+
+.review__form {
+  width: 70%;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.review__form h4 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+.form__group input,
+.form__group textarea {
+  width: 100%;
+  border: 1px solid var(--primary-color);
+  border-radius: 5px;
+  padding: 8px 20px;
+}
+
+.form__group input:focus,
+.form__group textarea:focus {
+  outline: none;
+}
+
+.form__group {
+  margin-bottom: 30px;
+}
+
+.form__rating span {
+    display: flex;
+    align-items: center;
+    column-gap: 5px;
+    color: var(--rating-color);
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+.related__title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+@media only screen and (max-width: 768px) {
+  .product__details h2 {
+    font-size: 1.3rem;
+  }
+
+  .form__rating {
+    column-gap: 1rem !important;
+  }
+}
+
+.user__comment__block {
+  display: flex;
+}
+.avatarUser__comment {
+  width: 50px;
+  height: 50px;
+  border-radius: 30px;
+  border: rgb(184, 180, 180) 1px solid;
+  margin-right: 10px;
+}
+
+.btn--group__addCart {
+  display: flex;
+  width: 80px;
+  justify-content: space-between;
+}
+.btn--sub__addCart {
+  outline: none;
+  border: none;
+  background-color: none;
+  width: 30%;
+  border: rgb(184, 180, 180) 1px solid;
+}
+
+.btn--sub__count {
+  border-top: rgb(184, 180, 180) 1px solid;
+  border-bottom: rgb(184, 180, 180) 1px solid;
+  width: 40%;
+  text-align: center;
+}
+
+.btn__addCart {
+  margin-top: 10px !important;
+}
+
+.btn--group__addCart {
+  margin-top: 15px;
+}
+
+.loading--api {
+  width: 100vh;
+  height: 100vh;
+  margin: 0 auto;
+  text-align: center;
+  padding-top: 70px;
+}

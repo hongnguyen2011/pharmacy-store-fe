@@ -1,0 +1,11 @@
+/* .info_price--order, */
+.info_user--order{
+    background-color: #ece9e9;
+    padding: 20px 10px;
+    border-radius: 8px;
+}
+
+.info_user--order > p{
+    color: #000;
+
+}

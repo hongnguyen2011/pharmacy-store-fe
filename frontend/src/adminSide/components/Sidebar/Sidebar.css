@@ -1,0 +1,10 @@
+/* .listItem__sidebar{
+	background-color: rgba(255, 255, 255, 0.08);
+} */
+
+.listItem__sidebar > .nav__link--sidebar {
+  width: 100%;
+  
+}
+
+
