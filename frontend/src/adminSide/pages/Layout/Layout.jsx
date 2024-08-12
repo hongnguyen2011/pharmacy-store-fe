@@ -8,40 +8,42 @@ import { getAllProductsApi } from "../../../redux/slices/productSlice";
 import { getAllCategoryApi } from "../../../redux/slices/categorySlice";
 import { getAllOrderApi } from "../../../redux/slices/orderSlice";
 
-
 export default function Layout() {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const isNonMobile = useMediaQuery("(min-width: 600px)");
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const currentUser =  JSON.parse(localStorage.getItem("currentUser"));
+    const isNonMobile = useMediaQuery("(min-width: 600px)");
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const currentUser = JSON.parse(localStorage.getItem("currentUser"))?.data;
+    useEffect(() => {
+        const fetchGetAllProductsApi = async () => {
+            await dispatch(getAllProductsApi());
+            await dispatch(getAllCategoryApi());
+            await dispatch(getAllOrderApi());
+        };
 
-  useEffect(() => {
-    const fetchGetAllProductsApi = async () => {
-      await dispatch(getAllProductsApi());
-      await dispatch(getAllCategoryApi());
-      await dispatch(getAllOrderApi());
-    };
-
-    fetchGetAllProductsApi();
-  }, []);
-  return (
-    <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">
-      <Sidebar
-        user={currentUser || {}}
-        isNonMobile={isNonMobile}
-        drawerWidth="250px"
-        isSidebarOpen={isSidebarOpen}
-        setIsSidebarOpen={setIsSidebarOpen}
-      />
-      <Box flexGrow={1}>
-        <Navbar
-          user={currentUser || {}}
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
-        <Outlet />
-      </Box>
-    </Box>
-  );
+        fetchGetAllProductsApi();
+    }, []);
+    return (
+        <Box
+            display={isNonMobile ? "flex" : "block"}
+            width="100%"
+            height="100%"
+        >
+            <Sidebar
+                user={currentUser || {}}
+                isNonMobile={isNonMobile}
+                drawerWidth="250px"
+                isSidebarOpen={isSidebarOpen}
+                setIsSidebarOpen={setIsSidebarOpen}
+            />
+            <Box flexGrow={1}>
+                <Navbar
+                    user={currentUser || {}}
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
+                <Outlet />
+            </Box>
+        </Box>
+    );
 }

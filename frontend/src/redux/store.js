@@ -3,7 +3,7 @@ import cartSlice from "./slices/cartSlice";
 import { userSlice } from "./slices/userSlice";
 import { productSlice } from "./slices/productSlice";
 import globalSlice  from "./slices/globalSlice";
-import categorySlice  from "./slices/categorySlice";
+import { categorySlice }  from "./slices/categorySlice";
 import orderSlice  from "./slices/orderSlice";
 
 
@@ -14,7 +14,7 @@ const store = configureStore({
         cart: cartSlice,
         product: productSlice.reducer,
         globalSlice,
-        categorySlice,
+        category: categorySlice.reducer,
         orderSlice
     }
 })

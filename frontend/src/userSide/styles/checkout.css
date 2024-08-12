@@ -3,9 +3,11 @@
 }
 
 .checkout__cart {
+    margin-top: 60px;
    padding: 20px;
    background: var(--primary-color);
    color: #fff;
+   height: 220px;
    border-radius: 5px; 
 }
 
@@ -20,7 +22,6 @@
 }
 
 .checkout__cart h4 {
-    border-top: 1px solid rgba(211, 221, 221, 0.253);
     padding-top: 2px;
 }
 

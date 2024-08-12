@@ -16,6 +16,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@themesberg/react-bootstrap": "^1.4.1",
+    "antd": "^5.4.7",
     "axios": "^1.2.0",
     "bootstrap": "^5.2.1",
     "cors": "^2.8.5",

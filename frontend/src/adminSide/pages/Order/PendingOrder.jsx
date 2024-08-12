@@ -1,114 +1,109 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { VND } from "../../../utils/convertVND";
-import { changeStatusOrderApi } from "../../../redux/slices/orderSlice";
-
+import {
+    changeStatusOrderService,
+    deleteOrder,
+} from "../../../services/orderServices";
+import { Table } from "antd";
+import { toast } from "react-toastify";
+import { getAllOrderApi } from "../../../redux/slices/orderSlice";
+import { getAllProductsApi } from "../../../redux/slices/productSlice";
 export default function PendingOrder() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
-  const { listOrder } = useSelector((state) => state.orderSlice);
-  const listOrderPending = listOrder.filter((order) => {
-    return order.status_order === 0;
-  });
+    const { listOrder } = useSelector((state) => state.orderSlice);
+    const listOrderPending = listOrder.filter((order) => {
+        return order.status === 1;
+    });
+    const onDelete = async (id) => {
+        const result = await deleteOrder(id);
+        if (result.status === 200) {
+            toast.success("Xóa thành công!");
+            await dispatch(getAllOrderApi());
+            navigate("/admin/orders/pending");
+        } else {
+            toast.error("Xóa thất bại!");
+        }
+    };
+    const onEdit = async (id) => {
+        const result = await changeStatusOrderService(id);
+        console.log(result);
+        if (result.data.status === 200) {
+            toast.success("Phê duyệt thành công!");
+            await dispatch(getAllOrderApi());
+            await dispatch(getAllProductsApi());
+            navigate("/admin/orders/pending");
+        } else {
+            toast.error("Phê duyệt thất bại!");
+        }
+    };
+    const columns = [
+        {
+            title: "ID",
+            dataIndex: "id",
+            key: "id",
+        },
+        {
+            title: "Tên khách hàng",
+            key: "name",
+            dataIndex: "name",
+        },
+        {
+            title: "Tổng tiền",
+            dataIndex: "total",
+            key: "total",
+            render: (value) => (
+                <>{VND.format(value)}</>
+            )
+        },
+        {
+            title: "Hành động",
+            key: "action",
+            render: (_, record) => (
+                <>
+                    <Button
+                        variant="contained"
+                        color="success"
+                        sx={{ marginLeft: "4px" }}
+                        onClick={() => onEdit(record.id)}
+                    >
+                        Phê duyệt
+                    </Button>
+                    <Button
+                        variant="contained"
+                        color="error"
+                        sx={{ marginLeft: "4px" }}
+                        onClick={() => onDelete(record.id)}
+                    >
+                        Xóa
+                    </Button>
+                    <Button
+                        variant="contained"
+                        style={{ background: "blue" }}
+                        sx={{ marginLeft: "4px" }}
+                        onClick={() => {
+                            navigate(`/admin/orders/detail/${record.id}`, {
+                                state: record,
+                            });
+                        }}
+                    >
+                        Chi tiết
+                    </Button>
+                </>
+            ),
+        },
+    ];
+    const rows = listOrderPending.length > 0 ? listOrderPending : [];
 
-  const columns = [
-    {
-      renderHeader: (params) => <strong>{params.colDef.headerName} </strong>,
-      field: "id",
-      headerName: "ID",
-      width: 130,
-    },
-    {
-      renderHeader: (params) => <strong>{params.colDef.headerName} </strong>,
-      field: "fullName",
-      headerName: "Customer",
-      width: 150,
-      sortable: false,
-    },
-
-    {
-      renderHeader: (params) => <strong>{params.colDef.headerName} </strong>,
-      field: "total_order",
-      headerName: "Total price",
-      width: 130,
-      type: "number",
-      sortable: false,
-      filterable: false,
-      valueFormatter: (params) => {
-        return VND.format(params.value);
-      },
-    },
-    {
-      renderHeader: (params) => <strong>{params.colDef.headerName} </strong>,
-      field: "createdAt",
-      headerName: "Created at",
-      width: 130,
-      sortable: false,
-      filterable: false,
-      valueFormatter: (params) => {
-        const date = new Date(params.value);
-        return date.toLocaleDateString("en-US");
-      },
-    },
-
-    {
-      renderHeader: (params) => <strong>{params.colDef.headerName} </strong>,
-      field: "action",
-      headerName: "Action",
-      width: 250,
-      sortable: false,
-      filterable: false,
-      renderCell: (params) => {
-        const order = params.row;
-        const {id} = order;
-
-        return (
-          <>
-            <Button
-              variant="contained"
-              color="warning"
-              onClick={() => {
-                dispatch(changeStatusOrderApi(id,1));
-              }}
-            >
-              Deliveried
-            </Button>
-            <Button
-              variant="contained"
-              color="success"
-              sx={{ marginLeft: "5px" }}
-              onClick={() => {
-                navigate(`/admin/orders/view_detail/${order.id}`, {
-                  state: order,
-                });
-              }}
-            >
-              View Detail
-            </Button>
-          </>
-        );
-      },
-    },
-  ];
-
-  const rows = listOrderPending.length > 0 ? listOrderPending : [];
-
-  return (
-    <>
-      <div style={{ height: "78vh", width: "100%", padding: "20px" }}>
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          pageSize={10}
-          rowsPerPageOptions={[5]}
-          checkboxSelection={false}
-          disableSelectionOnClick
-        />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <div style={{ height: "78vh", width: "100%", padding: "20px" }}>
+                <Table columns={columns} dataSource={rows} />
+            </div>
+        </>
+    );
 }

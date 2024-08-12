@@ -22,35 +22,35 @@ const Signup = () => {
             phone: "",
             password: "",
             confirmedPassword: "",
-            address:""
+            address: "",
         },
         validationSchema: Yup.object({
             name: Yup.string()
                 .required("Required")
-                .min(4, "Must be 4 characters or more"),
+                .min(4, "Phải có 4 ký tự trở lên"),
             address: Yup.string()
                 .required("Required")
-                .min(4, "Must be 4 characters or more"),
+                .min(4, "Phải có 4 ký tự trở lên"),
             email: Yup.string()
                 .required("Required")
                 .matches(
                     /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
-                    "Please enter a valid email address"
+                    "Vui lòng nhập địa chỉ email hợp lệ"
                 ),
             password: Yup.string()
                 .required("Required")
                 .matches(
                     /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+])[A-Za-z\d][A-Za-z\d!@#$%^&*()_+]{7,19}$/,
-                    "Password must be 7-19 characters and contain at least one letter, one number and a special character"
+                    "Mật khẩu phải có 7-19 ký tự và chứa ít nhất một chữ cái, một số và một ký tự đặc biệt"
                 ),
             confirmedPassword: Yup.string()
                 .required("Required")
-                .oneOf([Yup.ref("password"), null], "Password must match"),
+                .oneOf([Yup.ref("password"), null], "Mật khẩu không khớp"),
             phone: Yup.string()
                 .required("Required")
                 .matches(
                     /^(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/,
-                    "Must be a valid phone number"
+                    "Phải là một số điện thoại hợp lệ"
                 ),
         }),
         onSubmit: (values) => {
@@ -58,15 +58,18 @@ const Signup = () => {
             delete dataSignup.confirmedPassword;
 
             const fectApiSignup = async () => {
-                await dispatch(userSignupApi(dataSignup));
-                const dataLogin = {
-                    name: formik.values.name,
-                    password: formik.values.password,
-                };
-                console.log(dataLogin);
-                await dispatch(userLoginApi(dataLogin));
-                toast.success("Signup successfully!");
-                navigate("/home");
+                const response = await dispatch(userSignupApi(dataSignup));
+                if (response.payload.status == 200) {
+                    const dataLogin = {
+                        email: formik.values.email,
+                        password: formik.values.password,
+                    };
+                    await dispatch(userLoginApi(dataLogin));
+                    toast.success("Đăng ký thành công!");
+                    navigate("/home");
+                } else {
+                    toast.error("Đăng ký thất bại!");
+                }
             };
 
             fectApiSignup();
@@ -79,56 +82,71 @@ const Signup = () => {
                 <Container>
                     <Row>
                         <Col lg="6" className="m-auto text-center">
-                            <h3 className="fw-food fs-4">Sign up</h3>
-                            <Form style={{ marginTop: "20px" }} className="auth__form" onSubmit={formik.handleSubmit}>
+                            <h3 className="fw-food fs-4">Đăng Ký</h3>
+                            <Form
+                                style={{ marginTop: "20px" }}
+                                className="auth__form"
+                                onSubmit={formik.handleSubmit}
+                            >
                                 <FormGroup className="form__group">
                                     <input
                                         type="text"
                                         id="name"
-                                        placeholder="Enter your name"
+                                        placeholder="Nhập tên của bạn"
                                         value={formik.values.name}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.name && (
-                                        <p className="errorMsg"> {formik.errors.name} </p>
+                                        <p className="errorMsg">
+                                            {" "}
+                                            {formik.errors.name}{" "}
+                                        </p>
                                     )}
                                 </FormGroup>
                                 <FormGroup className="form__group">
                                     <input
                                         type="email"
                                         id="email"
-                                        placeholder="Enter your email"
+                                        placeholder="Nhập email của bạn"
                                         value={formik.values.email}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.email && (
-                                        <p className="errorMsg"> {formik.errors.email} </p>
+                                        <p className="errorMsg">
+                                            {" "}
+                                            {formik.errors.email}{" "}
+                                        </p>
                                     )}
                                 </FormGroup>
                                 <FormGroup className="form__group">
                                     <input
                                         type="text"
                                         id="password"
-                                        placeholder="Enter your password"
+                                        placeholder="Nhập mật khẩu của bạn"
                                         value={formik.password}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.password && (
-                                        <p className="errorMsg"> {formik.errors.password} </p>
+                                        <p className="errorMsg">
+                                            {" "}
+                                            {formik.errors.password}{" "}
+                                        </p>
                                     )}
                                 </FormGroup>
                                 <FormGroup className="form__group">
                                     <input
                                         type="text"
                                         id="confirmedPassword"
-                                        placeholder="Confirm your passworld"
+                                        placeholder="Xác nhận mật khẩu của bạn"
                                         value={formik.values.confirmedPassword}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.confirmedPassword && (
                                         <p className="errorMsg">
                                             {" "}
-                                            {formik.errors.confirmedPassword}{" "}
+                                            {
+                                                formik.errors.confirmedPassword
+                                            }{" "}
                                         </p>
                                     )}
                                 </FormGroup>
@@ -136,32 +154,41 @@ const Signup = () => {
                                     <input
                                         type="text"
                                         id="phone"
-                                        placeholder="Enter your phone"
+                                        placeholder="Nhập số điện thoại của bạn"
                                         value={formik.values.phone}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.phone && (
-                                        <p className="errorMsg"> {formik.errors.phone} </p>
+                                        <p className="errorMsg">
+                                            {" "}
+                                            {formik.errors.phone}{" "}
+                                        </p>
                                     )}
                                 </FormGroup>
                                 <FormGroup className="form__group">
                                     <input
                                         type="text"
                                         id="address"
-                                        placeholder="Enter your address"
+                                        placeholder="Nhập địa chỉ của bạn"
                                         value={formik.values.address}
                                         onChange={formik.handleChange}
                                     />
                                     {formik.errors.address && (
-                                        <p className="errorMsg"> {formik.errors.address} </p>
+                                        <p className="errorMsg">
+                                            {" "}
+                                            {formik.errors.address}{" "}
+                                        </p>
                                     )}
                                 </FormGroup>
-                                <button className="buy__btn auth__btn" type="submit">
-                                    Sign up
+                                <button
+                                    className="buy__btn auth__btn"
+                                    type="submit"
+                                >
+                                    Đăng ký
                                 </button>
                                 <p>
-                                    Create an account
-                                    <Link to="/login"> Login</Link>
+                                    Bạn đã có tài khoản ?
+                                    <Link to="/login"> Đăng nhập</Link>
                                 </p>
                             </Form>
                         </Col>

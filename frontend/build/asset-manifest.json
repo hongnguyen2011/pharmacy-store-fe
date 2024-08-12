@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.62ef76ac.css",
+    "main.js": "/static/js/main.6c933ad8.js",
+    "static/media/remixicon.svg?t=1590207869815": "/static/media/remixicon.9cedd2150922ead84869.svg",
+    "static/media/eco-logo.png": "/static/media/eco-logo.8534594267c2e8d97cbd.png",
+    "static/media/remixicon.eot?t=1590207869815": "/static/media/remixicon.5cb99e6cba5a4619063f.eot",
+    "static/media/remixicon.ttf?t=1590207869815": "/static/media/remixicon.f2616f597cf98f38d234.ttf",
+    "static/media/remixicon.woff?t=1590207869815": "/static/media/remixicon.8d09fa11700ed63cf96e.woff",
+    "static/media/remixicon.woff2?t=1590207869815": "/static/media/remixicon.90668f6f9b3c2c18a090.woff2",
+    "static/media/counter-timer-img.png": "/static/media/counter-timer-img.11ac8dfe1f6734c62d2f.png",
+    "static/media/hero-img.png": "/static/media/hero-img.d0bd96726352a9ac527c.png",
+    "index.html": "/index.html",
+    "main.62ef76ac.css.map": "/static/css/main.62ef76ac.css.map",
+    "main.6c933ad8.js.map": "/static/js/main.6c933ad8.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.62ef76ac.css",
+    "static/js/main.6c933ad8.js"
+  ]
+}

@@ -1,70 +1,85 @@
 import requestApi from "../utils/requestApi";
 
-export const createOrderService = async (dataCreateOrder) => {
-  try {
-    const respone = await requestApi({
-      method: "post",
-      url: "order",
-      data: {
-        fullName: `${dataCreateOrder.name}`,
-        receiving_address: `${dataCreateOrder.address}`,
-        phone_number: `${dataCreateOrder.number}`,
-      },
-      headers: {
-        Authorization: "Bearer " + `${dataCreateOrder.accessToken}`,
-      },
-    });
-    return respone;
-  } catch (error) {
-    return error;
-  }
+const token = JSON.parse(localStorage.getItem("token"));
+const user = JSON.parse(localStorage.getItem("currentUser"))?.data;
+
+export const createOrderService = async () => {
+    try {
+        const respone = await requestApi({
+            method: "get",
+            url: `order/confirm?idUser=${user.id}&status=1`,
+            headers: {
+                Authorization: token,
+            },
+        });
+        return respone.data;
+    } catch (error) {
+        return error;
+    }
 };
 
-export const getAllOrderAnUserService = async (accessToken) => {
-  try {
-    const respone = await requestApi({
-      method: "get",
-      url: "order",
-      headers: {
-        Authorization: "Bearer " + `${accessToken}`,
-      },
-    });
-    return respone;
-  } catch (error) {
-    return error;
-  }
+export const getAllOrderAnUserService = async () => {
+    try {
+        const respone = await requestApi({
+            method: "get",
+            url: `order/getAllOrder?idUser=${user.id}`,
+            headers: {
+                Authorization: token,
+            },
+        });
+        return respone;
+    } catch (error) {
+        return error;
+    }
 };
-
+export const deleteOrder = async (id) => {
+    try {
+        const respone = await requestApi({
+            method: "delete",
+            url: `order/delete`,
+            data: JSON.stringify(id),
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: token,
+            },
+        });
+        return respone.data;
+    } catch (error) {
+        return error;
+    }
+};
 export const getDetailsOrderService = async (dataOrderDetail) => {
-  try {
-    const respone = await requestApi({
-      method: "get",
-      url: `orderItem/${dataOrderDetail.id}`,
-      headers: {
-        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-    });
-    return respone;
-  } catch (error) {
-    return error;
-  }
+    try {
+        const respone = await requestApi({
+            method: "get",
+            url: `order/detail/getAllByOrder?idOrder=${dataOrderDetail}`,
+            headers: {
+                Authorization: token,
+            },
+        });
+        return respone.data;
+    } catch (error) {
+        return error;
+    }
 };
 
 export const getAllOrderService = () => {
-  return requestApi({
-    method: "get",
-    url: `order/get_all_order`,
-  });
+    return requestApi({
+        method: "get",
+        url: `order/all`,
+        headers: {
+            Authorization: token,
+        },
+    });
 };
 
 
-export const changeStatusOrderService = (idOrder,status_order)=>{
-  return requestApi({
-    method: "put",
-    url: `order/change_status_order/${idOrder}`,
-    data:{status_order},
-    headers: {
-        Authorization: "Bearer " + JSON.parse(localStorage.getItem("token")),
-      },
-  });
+export const changeStatusOrderService = (idOrder) => {
+    return requestApi({
+        method: "get",
+        url: `order/confirmOrder?idOrder=${idOrder}&status=2`,
+        headers: {
+            Authorization: token,
+        },
+    });
 }

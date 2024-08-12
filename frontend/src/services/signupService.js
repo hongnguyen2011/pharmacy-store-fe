@@ -4,13 +4,13 @@ export const signupServices = async (dataSignup) => {
     try {
         const respone = await requestApi({
             method: "post",
-            url: "user/add",
+            url: "user/register",
             headers: {
                 "Content-Type": "application/json",
             },
             data: JSON.stringify(dataSignup),
         });
-        return respone;
+        return respone.data;
     } catch (error) {
         return error;
     }
