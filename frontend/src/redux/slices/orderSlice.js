@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { changeStatusOrderService, getAllOrderService,getAllDoanhThu } from "../../services/orderServices";
+import { changeStatusOrderService, getAllOrderService } from "../../services/orderServices";
 
 const initialState = {
     listOrder: [],

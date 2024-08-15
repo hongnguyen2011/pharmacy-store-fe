@@ -18,13 +18,13 @@ export const createOrderService = async () => {
     }
 };
 
-export const getAllOrderAnUserService = async () => {
+export const getAllOrderAnUserService = async (id, tokenUser) => {
     try {
         const respone = await requestApi({
             method: "get",
-            url: `order/getAllOrder?idUser=${user.id}`,
+            url: `order/getAllOrder?idUser=${id}`,
             headers: {
-                Authorization: token,
+                Authorization: tokenUser,
             },
         });
         return respone;

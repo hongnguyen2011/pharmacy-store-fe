@@ -6,7 +6,7 @@ import "../styles/login.css";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { toast } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { userLoginApi } from "../../redux/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 

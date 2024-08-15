@@ -27,7 +27,7 @@ const LayoutUserSide = () => {
     return (
         <>
             <Header />
-            <div>
+            <div style={{ minHeight: "600px" }}>
                 <Routers />
             </div>
             <Footer />
