@@ -14,6 +14,7 @@ const ProductCard = (props) => {
                         whileHover={{ scale: 0.9 }}
                         src={item.pathImg}
                         alt="productImg"
+                        style={{ width: "300px", height: "300px" }}
                     />
                     <div className="p-2 product__info">
                         <h3

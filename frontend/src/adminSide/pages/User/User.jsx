@@ -12,20 +12,20 @@ export default function User() {
     const token = JSON.parse(localStorage.getItem("token"));
 
     const [users, setUsers] = useState([]);
+    const fetchUser = async () => {
+        const result = await getAllUserService(token);
+        if (result.data.status === 200) {
+            setUsers(result.data.data);
+        }
+    };
     useEffect(() => {
-        const fetchUser = async () => {
-            const result = await getAllUserService(token);
-            if (result.data.status === 200) {
-                setUsers(result.data.data);
-            }
-        };
         fetchUser();
     }, []);
     const onDelete = async (id) => {
         const result = await deleteUser(id);
         if (result.status === 200) {
             toast.success("Xóa thành công!");
-            navigate("/admin/users");
+            fetchUser();
         } else {
             toast.error("Xóa thất bại!");
         }

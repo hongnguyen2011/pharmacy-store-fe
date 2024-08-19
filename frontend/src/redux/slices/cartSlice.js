@@ -62,7 +62,6 @@ export const getAllCartItemApi = createAsyncThunk(
     "cart/getAllCart",
     async (accessToken) => {
         const respone = await getAllCartItemService(accessToken);
-        console.log(respone);
         if (respone.data === undefined) {
             return Promise.reject();
         }

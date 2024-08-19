@@ -74,7 +74,7 @@ export const getAllOrderService = () => {
 };
 
 
-export const changeStatusOrderService = (idOrder) => {
+export const changeStatusOrderService = async (idOrder) => {
     return requestApi({
         method: "get",
         url: `order/confirmOrder?idOrder=${idOrder}&status=2`,

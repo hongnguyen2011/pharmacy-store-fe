@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Table } from "antd";
 import { useSelector, useDispatch } from "react-redux";
 import "./product.css";
@@ -86,7 +86,6 @@ export default function Product() {
         },
     ];
     const rows = listProduct.length > 0 ? listProduct : [];
-
     return (
         <>
             <div

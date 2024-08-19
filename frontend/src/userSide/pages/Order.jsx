@@ -1,22 +1,17 @@
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAllOrderAnUserService } from "../../services/orderServices";
 import OrderCard from "../components/UI/OrderCard";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-
 const Order = () => {
     const navigate = useNavigate();
     const [order, setOrder] = useState([]);
-    const user = useSelector((state) => state.user.currentUser);
-    const token = useSelector((state) => state.user.token);
-    console.log(user, token);
+    const user = JSON.parse(localStorage.getItem('currentUser'))?.data;
+    const token = JSON.parse(localStorage.getItem('token'));
     if (user === undefined) {
         navigate("/login");
     }
     useEffect(() => {
-        const id = user.data.id;
+        const id = user?.id;
         const result = async () => {
             const data = await getAllOrderAnUserService(id, token);
             if (data.data?.status === 200) {

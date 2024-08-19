@@ -6,10 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { editProfileApi } from "../../../redux/slices/userSlice";
 import icon from "../../../assets/images/user-icon.png";
-
+import ChangePassword from "./ChangePassword";
 export const GeneralInfoForm = () => {
     const user = JSON.parse(localStorage.getItem("currentUser"));
     const imgReview = useRef(null);
+    const [open, setOpen] = useState(false);
+    const onOpen = () => {
+        setOpen(!open);
+    };
     const [image, setImage] = useState();
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -154,15 +158,26 @@ export const GeneralInfoForm = () => {
                                     </Form.Group>
                                 </Col>
                             </Row>
-                            <div className="mt-3">
-                                <Button
-                                    variant="primary"
-                                    type="submit"
-                                    style={{ backgroundColor: "#0a1d37" }}
-                                >
-                                    Lưu
-                                </Button>
-                            </div>
+                            <Row>
+                                <Col sm={6} className="mb-3">
+                                    <Button
+                                        variant="primary"
+                                        style={{ backgroundColor: "#11376c" }}
+                                        onClick={onOpen}
+                                    >
+                                        Thay đổi mật khẩu
+                                    </Button>
+                                </Col>
+                                <Col sm={6} className="mb-3">
+                                    <Button
+                                        variant="primary"
+                                        type="submit"
+                                        style={{ backgroundColor: "#0a1d37" }}
+                                    >
+                                        Lưu
+                                    </Button>
+                                </Col>
+                            </Row>
                         </Form>
                     </Card.Body>
                 </Card>
@@ -188,6 +203,7 @@ export const GeneralInfoForm = () => {
                     </Col>
                 </Row>
             </Col>
+            {open ? <ChangePassword open={open} onOpen={onOpen} /> : <></>}
         </>
     );
 };

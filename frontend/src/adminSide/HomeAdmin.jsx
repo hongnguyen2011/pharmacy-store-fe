@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./pages/Layout/Layout";
 import Product from "./pages/Product/Product";

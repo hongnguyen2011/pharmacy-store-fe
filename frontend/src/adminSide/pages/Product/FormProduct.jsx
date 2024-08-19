@@ -1,9 +1,9 @@
-import React, { useRef, useState } from "react";
+import { Button, Select } from "antd";
 import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import * as Yup from "yup";
+import React, { useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "antd";
+import * as Yup from "yup";
 export default function FormProduct(props) {
     const { initialData, submitForm } = props;
     const navigate = useNavigate();
@@ -12,6 +12,7 @@ export default function FormProduct(props) {
 
     const imgReview = useRef(null);
     const [image, setImage] = useState();
+    const [type, setType] = useState();
     const handleUpImage = async (e) => {
         showImgProduct(e.target.files[0]);
         let imgArr = [];
@@ -41,6 +42,7 @@ export default function FormProduct(props) {
 
         validationSchema: Yup.object().shape({
             name: Yup.string().required("Tên sản phẩm không được để trống!"),
+
             price: Yup.string().required("Giá sản phẩm không được để trống!"),
             quantity: Yup.string().required(
                 "Giá sản phẩm không được để trống!"
@@ -60,7 +62,7 @@ export default function FormProduct(props) {
             } else {
                 _image = values.pathImg;
             }
-            let data = { ...values, pathImg: _image, idUser: user.id };
+            let data = { ...values, pathImg: _image, idUser: user.id, type };
             delete data.slug;
             delete data.categoryName;
             submitForm(data);
@@ -153,7 +155,7 @@ export default function FormProduct(props) {
                     <span className="text-danger">{errors.quantity}</span>
                 </div>
                 <div className="form-group">
-                    <h5 style={{ marginBottom: "10px" }} htmlFor="description">
+                    <h5 style={{ marginBottom: "10px" }} htmlFor="type">
                         Chi tiết sản phẩm
                     </h5>
                     <textarea
@@ -165,6 +167,37 @@ export default function FormProduct(props) {
                         value={values.detail}
                     ></textarea>
                     <span className="text-danger">{errors.detail}</span>
+                </div>
+                <div className="form-group">
+                    <h5 style={{ marginBottom: "10px" }} htmlFor="description">
+                        Kiểu sản phẩm
+                    </h5>
+                    <Select
+                        placeholder="Chọn kiểu sản phẩm"
+                        onChange={(value) => setType(value)}
+                        filterOption={(input, option) =>
+                            (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        }
+                        value={values.type}
+                        options={[
+                            {
+                                value: 'Hộp',
+                                label: 'Hộp',
+                            },
+                            {
+                                value: 'Chai',
+                                label: 'Chai',
+                            },
+                            {
+                                value: 'Miếng',
+                                label: 'Miếng',
+                            },
+                            {
+                                value: 'Tuýt',
+                                label: 'Tuýt',
+                            },
+                        ]}
+                    />
                 </div>
 
                 <div className="form-group">
